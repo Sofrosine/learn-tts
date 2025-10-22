@@ -110,26 +110,24 @@
             padding: 20px;
             border-radius: 10px;
             font-size: 18px;
-            line-height: 1.6;
+            line-height: 1.8;
             color: #333;
             border: 2px solid #e9ecef;
-            transition: all 0.3s;
         }
 
-        .output-text.speaking {
+        .word {
+            display: inline-block;
+            padding: 2px 4px;
+            margin: 2px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .word.active {
             background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
             color: white;
-            border-color: #ffd89b;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.02);
-            }
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         .controls {
@@ -194,6 +192,42 @@
         }
 
         let currentUtterance = null;
+        let words = [];
+
+        // Function to create word spans
+        function createWordSpans(text) {
+            // Split text into words
+            words = text.split(/\s+/);
+
+            // Clear output text
+            outputText.innerHTML = '';
+
+            // Create span for each word
+            words.forEach((word, index) => {
+                const span = document.createElement('span');
+                span.className = 'word';
+                span.textContent = word;
+                span.setAttribute('data-index', index);
+                outputText.appendChild(span);
+
+                // Add space after each word except the last one
+                if (index < words.length - 1) {
+                    outputText.appendChild(document.createTextNode(' '));
+                }
+            });
+        }
+
+        // Function to highlight word at specific index
+        function highlightWord(index) {
+            // Remove all active classes
+            const allWords = document.querySelectorAll('.word');
+            allWords.forEach(word => word.classList.remove('active'));
+
+            // Add active class to current word
+            if (index >= 0 && index < allWords.length) {
+                allWords[index].classList.add('active');
+            }
+        }
 
         // Function to speak text
         function speakText(text) {
@@ -208,19 +242,33 @@
             currentUtterance.pitch = 1; // Pitch (0 to 2)
             currentUtterance.volume = 1; // Volume (0 to 1)
 
+            let currentWordIndex = 0;
+
+            // Track word boundaries
+            currentUtterance.onboundary = function(event) {
+                if (event.name === 'word') {
+                    // Highlight the current word
+                    highlightWord(currentWordIndex);
+                    currentWordIndex++;
+                }
+            };
+
             // Event handlers
             currentUtterance.onstart = function() {
-                outputText.classList.add('speaking');
                 statusIndicator.textContent = 'Speaking...';
                 statusIndicator.classList.add('speaking');
                 submitBtn.disabled = true;
                 pauseBtn.style.display = 'block';
                 stopBtn.style.display = 'block';
                 resumeBtn.style.display = 'none';
+                currentWordIndex = 0;
             };
 
             currentUtterance.onend = function() {
-                outputText.classList.remove('speaking');
+                // Remove all highlights
+                const allWords = document.querySelectorAll('.word');
+                allWords.forEach(word => word.classList.remove('active'));
+
                 statusIndicator.textContent = 'Finished';
                 statusIndicator.classList.remove('speaking');
                 submitBtn.disabled = false;
@@ -231,7 +279,11 @@
 
             currentUtterance.onerror = function(event) {
                 console.error('Speech synthesis error:', event);
-                outputText.classList.remove('speaking');
+
+                // Remove all highlights
+                const allWords = document.querySelectorAll('.word');
+                allWords.forEach(word => word.classList.remove('active'));
+
                 statusIndicator.textContent = 'Error occurred';
                 statusIndicator.classList.remove('speaking');
                 submitBtn.disabled = false;
@@ -241,14 +293,12 @@
             };
 
             currentUtterance.onpause = function() {
-                outputText.classList.remove('speaking');
                 statusIndicator.textContent = 'Paused';
                 pauseBtn.style.display = 'none';
                 resumeBtn.style.display = 'block';
             };
 
             currentUtterance.onresume = function() {
-                outputText.classList.add('speaking');
                 statusIndicator.textContent = 'Speaking...';
                 pauseBtn.style.display = 'block';
                 resumeBtn.style.display = 'none';
@@ -267,8 +317,8 @@
                 return;
             }
 
-            // Display the text in output section
-            outputText.textContent = text;
+            // Create word spans
+            createWordSpans(text);
             outputSection.classList.add('active');
 
             // Speak the text
@@ -295,7 +345,11 @@
         // Stop button
         stopBtn.addEventListener('click', function() {
             window.speechSynthesis.cancel();
-            outputText.classList.remove('speaking');
+
+            // Remove all highlights
+            const allWords = document.querySelectorAll('.word');
+            allWords.forEach(word => word.classList.remove('active'));
+
             statusIndicator.textContent = 'Stopped';
             statusIndicator.classList.remove('speaking');
             submitBtn.disabled = false;
