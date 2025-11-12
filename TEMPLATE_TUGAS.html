@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Tugas - Ganti dengan Judul yang Sesuai</title>
+</head>
+<body>
+    <!--
+        INSTRUKSI:
+        1. File ini adalah CONTOH struktur dasar HTML
+        2. JANGAN langsung edit file ini sebagai jawaban tugas
+        3. Buat file baru: index.html, pendidikan.html, kontak.html
+        4. Gunakan struktur ini sebagai referensi
+        5. Hapus semua komentar ini saat mengerjakan tugas
+    -->
+
+    <!-- NAVIGASI - Bisa diletakkan di semua halaman -->
+    <nav>
+        <a href="index.html">Beranda</a> |
+        <a href="pendidikan.html">Pendidikan</a> |
+        <a href="kontak.html">Kontak</a>
+    </nav>
+
+    <hr>
+
+    <!-- CONTOH: HEADING -->
+    <h1>Ini adalah Heading 1 - Biasanya untuk Judul Utama</h1>
+    <h2>Ini adalah Heading 2 - Untuk Sub Judul</h2>
+    <h3>Ini adalah Heading 3 - Untuk Sub-Sub Judul</h3>
+
+    <!-- CONTOH: PARAGRAF -->
+    <p>Ini adalah contoh paragraf. Kamu bisa menulis teks panjang di sini.</p>
+    <p>Paragraf kedua. Setiap paragraf dibungkus dengan tag <code>&lt;p&gt;</code>.</p>
+
+    <!-- CONTOH: GAMBAR -->
+    <h2>Contoh Gambar</h2>
+    <img src="https://via.placeholder.com/300" alt="Deskripsi gambar">
+    <!-- Untuk gambar lokal: <img src="images/foto.jpg" alt="Foto saya"> -->
+
+    <!-- CONTOH: LIST TIDAK BERURUT -->
+    <h2>Contoh Unordered List (Bullet Points)</h2>
+    <ul>
+        <li>Item pertama</li>
+        <li>Item kedua</li>
+        <li>Item ketiga</li>
+    </ul>
+
+    <!-- CONTOH: LIST BERURUT -->
+    <h2>Contoh Ordered List (Angka)</h2>
+    <ol>
+        <li>Langkah pertama</li>
+        <li>Langkah kedua</li>
+        <li>Langkah ketiga</li>
+    </ol>
+
+    <!-- CONTOH: TABEL SEDERHANA -->
+    <h2>Contoh Tabel</h2>
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Kolom 1</th>
+                <th>Kolom 2</th>
+                <th>Kolom 3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Data 1</td>
+                <td>Data 2</td>
+                <td>Data 3</td>
+            </tr>
+            <tr>
+                <td>Data 4</td>
+                <td>Data 5</td>
+                <td>Data 6</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- CONTOH: TABEL DENGAN MERGING -->
+    <h2>Contoh Tabel dengan Colspan (Menggabung Kolom)</h2>
+    <table border="1" cellpadding="10" cellspacing="0">
+        <tr>
+            <th colspan="2">Header yang Menggabung 2 Kolom</th>
+        </tr>
+        <tr>
+            <td>Data 1</td>
+            <td>Data 2</td>
+        </tr>
+    </table>
+
+    <h2>Contoh Tabel dengan Rowspan (Menggabung Baris)</h2>
+    <table border="1" cellpadding="10" cellspacing="0">
+        <tr>
+            <td rowspan="2">Cell ini tinggi karena menggabung 2 baris</td>
+            <td>Data 1</td>
+        </tr>
+        <tr>
+            <td>Data 2</td>
+        </tr>
+    </table>
+
+    <!-- CONTOH: LINK -->
+    <h2>Contoh Link</h2>
+    <p>
+        Link internal: <a href="halaman-lain.html">Klik di sini untuk ke halaman lain</a>
+    </p>
+    <p>
+        Link eksternal: <a href="https://www.google.com" target="_blank">Klik di sini untuk ke Google</a>
+    </p>
+
+    <!-- CONTOH: FORM -->
+    <h2>Contoh Form</h2>
+    <form>
+        <!-- Input Text -->
+        <label for="nama">Nama:</label><br>
+        <input type="text" id="nama" name="nama" placeholder="Masukkan nama"><br><br>
+
+        <!-- Input Email -->
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" placeholder="contoh@email.com"><br><br>
+
+        <!-- Radio Button -->
+        <label>Jenis Kelamin:</label><br>
+        <input type="radio" id="pria" name="gender" value="pria">
+        <label for="pria">Pria</label><br>
+        <input type="radio" id="wanita" name="gender" value="wanita">
+        <label for="wanita">Wanita</label><br><br>
+
+        <!-- Checkbox -->
+        <label>Hobi:</label><br>
+        <input type="checkbox" id="hobi1" name="hobi1" value="membaca">
+        <label for="hobi1">Membaca</label><br>
+        <input type="checkbox" id="hobi2" name="hobi2" value="olahraga">
+        <label for="hobi2">Olahraga</label><br>
+        <input type="checkbox" id="hobi3" name="hobi3" value="musik">
+        <label for="hobi3">Musik</label><br><br>
+
+        <!-- Select / Dropdown -->
+        <label for="kota">Pilih Kota:</label><br>
+        <select id="kota" name="kota">
+            <option value="">-- Pilih Kota --</option>
+            <option value="jakarta">Jakarta</option>
+            <option value="bandung">Bandung</option>
+            <option value="surabaya">Surabaya</option>
+        </select><br><br>
+
+        <!-- Textarea -->
+        <label for="pesan">Pesan:</label><br>
+        <textarea id="pesan" name="pesan" rows="5" cols="30" placeholder="Tulis pesan di sini"></textarea><br><br>
+
+        <!-- Submit Button -->
+        <button type="submit">Kirim</button>
+    </form>
+
+    <hr>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><em>© 2024 - Nama Kamu. All rights reserved.</em></p>
+    </footer>
+
+</body>
+</html>
